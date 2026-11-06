@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-runtime"
+version = "0.1.0"
+description = "A small agent runtime where safety is code, not a prompt: tool policies, approvals, budgets, injection guard, tamper-evident traces and policy replay."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Sujyonta Kumar Giri" }]
+keywords = ["ai-agents", "agentic-ai", "guardrails", "prompt-injection", "tool-use", "audit-trail", "safety", "llm"]
+dependencies = []
+
+[project.optional-dependencies]
+gemini = ["google-genai>=1.0"]
+dev = ["pytest>=8.0", "ruff>=0.5"]
+
+[project.scripts]
+agentrt = "agent_runtime.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 160
+target-version = "py310"
+extend-exclude = ["examples"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E501"]
+"src/agent_runtime/guard.py" = ["E501"]
+"src/agent_runtime/demo.py" = ["E501"]
